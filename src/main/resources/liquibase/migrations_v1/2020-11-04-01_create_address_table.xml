@@ -1,0 +1,51 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="h4rar" id="20201104003930_create_address_table">
+        <createTable tableName="address">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="created" type="timestamp without time zone" defaultValueComputed="current_timestamp">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated" type="timestamp without time zone" defaultValueComputed="current_timestamp">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="basic_status" type="VARCHAR(25)" defaultValue="ACTIVE">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="street" type="VARCHAR(150)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="house" type="VARCHAR(8)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="room" type="VARCHAR(8)"/>
+
+            <column name="index" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="h4rar" id="2021-01-03-11_add-foreign_key_constraint">
+        <addForeignKeyConstraint baseTableName="address" baseColumnNames="user_id" constraintName="user_id" referencedTableName="users"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
+
+
+

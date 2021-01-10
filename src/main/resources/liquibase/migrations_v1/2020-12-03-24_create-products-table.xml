@@ -1,0 +1,47 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="h4rar" id="2020-12-03-24_create-products-table">
+        <createTable tableName="products">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="created" type="timestamp without time zone" defaultValueComputed="current_timestamp">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated" type="timestamp without time zone" defaultValueComputed="current_timestamp">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="basic_status" type="VARCHAR(25)" defaultValue="ACTIVE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="price" type="DOUBLE PRECISION">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="quantity" type="INT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="category_id" type="BIGINT">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="h4rar" id="2020-12-03-24_add-foreign_key_constraint">
+        <addForeignKeyConstraint baseTableName="products" baseColumnNames="category_id" constraintName="category_id" referencedTableName="categories"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

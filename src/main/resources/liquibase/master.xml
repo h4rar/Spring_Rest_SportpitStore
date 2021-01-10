@@ -1,0 +1,21 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <include file="classpath:liquibase/migrations_v1/2020-11-03-01_create_users_table.xml"/>
+    <include file="classpath:liquibase/migrations_v1/2020-11-04-01_create_address_table.xml"/>
+    <include file="classpath:liquibase/migrations_v1/2020-11-04-10_create_roles_table.xml"/>
+    <include file="classpath:liquibase/migrations_v1/2020-11-04-20_create_user_roles_table.xml"/>
+    <include file="classpath:liquibase/migrations_v1/2020-11-04-30_add_foreign_key_for_user_roles_table.xml"/>
+    <include file="classpath:liquibase/migrations_v1/2020-11-04-40_insert_roles.xml"/>
+    <include file="classpath:liquibase/migrations_v1/2020-12-03-11_insert_admin.xml"/>
+    <include file="classpath:liquibase/migrations_v1/2020-12-03-15_create-categories-table.xml"/>
+    <include file="classpath:liquibase/migrations_v1/2020-12-03-24_create-products-table.xml"/>
+    <include file="classpath:liquibase/migrations_v1/2020-12-03-25_create-comments-table.xml"/>
+
+    <include file="classpath:liquibase/migrations_v1/2021-01-08-10_create-orders-table.xml"/>
+    <include file="classpath:liquibase/migrations_v1/2021-01-08-11_create-products_in_orders-table.xml"/>
+
+
+</databaseChangeLog>

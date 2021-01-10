@@ -1,0 +1,23 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="2020-12-03-11_insert_admin" author="h4rar">
+        <insert tableName="users">
+            <column name="username" value="h4rar"/>
+            <column name="email" value="anton.h4rar@gmail.com"/>
+            <column name="first_name" value="Антон"/>
+            <column name="last_name" value="Харченко"/>
+            <column name="password" value="$2a$10$yWhHsbpuCwdwnGK6qSB4rO2mGgfj9b9tdhxOOC1nAQYb2LEwcKGby"/>
+            <column name="created" value="${now}"/>
+            <column name="updated" value="${now}"/>
+            <column name="basic_status" value="ACTIVE"/>
+        </insert>
+
+        <insert tableName="user_roles">
+            <column name="user_id" value="1"/>
+            <column name="role_id" value="1"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
