@@ -17,6 +17,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] publicEndpoints = new String[]{
             "/api/login",
             "/api/register",
+            "/api/products/**",
+            "/api/categories/**",
     };
 
 //    private static final String[] userEndpoints = new String[]{
