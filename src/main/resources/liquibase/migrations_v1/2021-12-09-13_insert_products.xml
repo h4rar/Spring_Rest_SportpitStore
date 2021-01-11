@@ -31,7 +31,7 @@
             <column name="created" value="${now}"/>
             <column name="updated" value="${now}"/>
             <column name="basic_status" value="ACTIVE"/>
-            <column name="name" value="BioTech Amino Nitron Liquid (1000 мл)"/>
+            <column name="name" value="BioTech Amino"/>
             <column name="price" value="1200"/>
             <column name="quantity" value="500"/>
             <column name="description" value="Nitron Amino Liquid от компании BioTech — это напиток, который был создан специально для серьезных бодибилдеров и соревнующихся пауэрлифтеров, а также для всех силовых атлетов и тех, кто нуждается в быстровсасывающихся амнокислотах.
