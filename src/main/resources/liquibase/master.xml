@@ -13,9 +13,11 @@
     <include file="classpath:liquibase/migrations_v1/2020-12-03-15_create-categories-table.xml"/>
     <include file="classpath:liquibase/migrations_v1/2020-12-03-24_create-products-table.xml"/>
     <include file="classpath:liquibase/migrations_v1/2020-12-03-25_create-comments-table.xml"/>
-
     <include file="classpath:liquibase/migrations_v1/2021-01-08-10_create-orders-table.xml"/>
     <include file="classpath:liquibase/migrations_v1/2021-01-08-11_create-products_in_orders-table.xml"/>
+
+    <include file="classpath:liquibase/migrations_v1/2021-12-09-12_insert_categories.xml"/>
+    <include file="classpath:liquibase/migrations_v1/2021-12-09-13_insert_products.xml"/>
 
 
 </databaseChangeLog>
