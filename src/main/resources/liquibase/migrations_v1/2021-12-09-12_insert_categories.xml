@@ -5,7 +5,91 @@
 
     <changeSet id="2021-12-09-12_insert_categories" author="h4rar">
         <insert tableName="categories">
+            <column name="name" value="BCAA"/>
+            <column name="created" value="${now}"/>
+            <column name="updated" value="${now}"/>
+            <column name="basic_status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="L-Carnitine"/>
+            <column name="created" value="${now}"/>
+            <column name="updated" value="${now}"/>
+            <column name="basic_status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="SARMs"/>
+            <column name="created" value="${now}"/>
+            <column name="updated" value="${now}"/>
+            <column name="basic_status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Аксессуары"/>
+            <column name="created" value="${now}"/>
+            <column name="updated" value="${now}"/>
+            <column name="basic_status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="categories">
             <column name="name" value="Аминокислоты"/>
+            <column name="created" value="${now}"/>
+            <column name="updated" value="${now}"/>
+            <column name="basic_status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Батончики"/>
+            <column name="created" value="${now}"/>
+            <column name="updated" value="${now}"/>
+            <column name="basic_status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Бутылки"/>
+            <column name="created" value="${now}"/>
+            <column name="updated" value="${now}"/>
+            <column name="basic_status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Витамины"/>
+            <column name="created" value="${now}"/>
+            <column name="updated" value="${now}"/>
+            <column name="basic_status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Гейнеры"/>
+            <column name="created" value="${now}"/>
+            <column name="updated" value="${now}"/>
+            <column name="basic_status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Жиросжигатели"/>
+            <column name="created" value="${now}"/>
+            <column name="updated" value="${now}"/>
+            <column name="basic_status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Креатин"/>
+            <column name="created" value="${now}"/>
+            <column name="updated" value="${now}"/>
+            <column name="basic_status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Пояса"/>
+            <column name="created" value="${now}"/>
+            <column name="updated" value="${now}"/>
+            <column name="basic_status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Протеины"/>
+            <column name="created" value="${now}"/>
+            <column name="updated" value="${now}"/>
+            <column name="basic_status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Шейкеры"/>
+            <column name="created" value="${now}"/>
+            <column name="updated" value="${now}"/>
+            <column name="basic_status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Экдистерон"/>
             <column name="created" value="${now}"/>
             <column name="updated" value="${now}"/>
             <column name="basic_status" value="ACTIVE"/>
