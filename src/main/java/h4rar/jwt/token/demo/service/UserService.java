@@ -11,6 +11,8 @@ import java.util.List;
 public interface UserService {
     UserResponseDto register(User user);
 
+    UserResponseDto getCurrentUser(HttpServletRequest req);
+
     UserResponseDto updateUser(HttpServletRequest req, UserUpdateRequestDto updateRequestDto);
 
     List<User> getAll();

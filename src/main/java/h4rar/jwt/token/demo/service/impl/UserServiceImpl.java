@@ -53,6 +53,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserResponseDto getCurrentUser(HttpServletRequest req) {
+        User user = jwtTokenProvider.getUserFromHttpServletRequest(req);
+        return UserResponseDto.fromUser(user);
+    }
+
+    @Override
     public List<User> getAll() {
         List<User> result = userRepository.findAll();
         return result;

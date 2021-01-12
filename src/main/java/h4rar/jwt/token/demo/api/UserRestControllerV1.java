@@ -41,4 +41,11 @@ public class UserRestControllerV1 {
     ) {
         return userService.updateUser(req, updateRequestDto);
     }
+
+    @GetMapping
+    public UserResponseDto getCurrentUser(
+            HttpServletRequest req
+    ) {
+        return userService.getCurrentUser(req);
+    }
 }
