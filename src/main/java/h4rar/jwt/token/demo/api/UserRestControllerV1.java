@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/api/users/")
+@CrossOrigin
 public class UserRestControllerV1 {
 
     private final UserService userService;

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/api/")
+@CrossOrigin
 public class OrderController {
 
     private final OrderService orderService;

@@ -15,6 +15,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping(value = "/api/")
+@CrossOrigin
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;

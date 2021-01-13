@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/api/")
+@CrossOrigin
 public class ProductController {
 
     private final ProductService productService;
