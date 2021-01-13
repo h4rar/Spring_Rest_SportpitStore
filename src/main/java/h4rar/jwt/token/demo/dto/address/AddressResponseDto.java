@@ -16,6 +16,7 @@ public class AddressResponseDto {
     private String room;
 
     private String index;
+
     private BasicStatus basicStatus;
 
     public static AddressResponseDto fromAddress(Address address) {
