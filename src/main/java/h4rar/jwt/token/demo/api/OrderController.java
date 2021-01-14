@@ -48,10 +48,10 @@ public class OrderController {
     }
 
     @PostMapping("/cart/to-order")
-    public void createNewOrder(
+    public OrderResponseDto createNewOrder(
             HttpServletRequest req,
             @RequestBody OrderCreateRequestDto dto
     ) {
-        orderService.createNewOrder(req, dto);
+        return orderService.createNewOrder(req, dto);
     }
 }

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface OrderService {
 
-    void createNewOrder(HttpServletRequest req, OrderCreateRequestDto dto);
+    OrderResponseDto createNewOrder(HttpServletRequest req, OrderCreateRequestDto dto);
     Page<OrderResponseDto> getAllOrdersAdmin(Pageable pageable);
     Page<OrderResponseDto> getAllOrders(HttpServletRequest req, Pageable pageable);
     void updateStatus(OrderUpdateStatusDto updateStatusDto);

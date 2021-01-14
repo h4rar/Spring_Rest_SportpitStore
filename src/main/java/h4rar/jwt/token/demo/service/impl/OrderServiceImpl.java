@@ -41,9 +41,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void createNewOrder(HttpServletRequest req, OrderCreateRequestDto dto) {
+    public OrderResponseDto createNewOrder(HttpServletRequest req, OrderCreateRequestDto dto) {
         User user = jwtTokenProvider.getUserFromHttpServletRequest(req);
-
         Order order = new Order();
         order.setOrderStatus(OrderStatus.IN_PROCESS);
         order.setUser(user);
@@ -53,7 +52,6 @@ public class OrderServiceImpl implements OrderService {
         Address address = addressRepository.findById(dto.getAddressId())
                 .orElseThrow(() -> new BadRequestException("Адреса с таким id  не существует"));
         order.setAddress(address);
-
         Map<Long, Integer> mapProducts = dto.getMapProducts();
         Set<ProductInOrder> set = new HashSet<>();
         for (Map.Entry<Long, Integer> entry : mapProducts.entrySet()
@@ -67,9 +65,9 @@ public class OrderServiceImpl implements OrderService {
             productInOrdersRepository.save(productInOrder);
             set.add(productInOrder);
         }
-
         order.setProductInOrders(set);
-        orderRepository.save(order);
+        Order save = orderRepository.save(order);
+        return OrderResponseDto.orderResponseDtoFromOrder(save);
     }
 
     @Override
