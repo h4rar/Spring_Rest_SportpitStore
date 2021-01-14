@@ -47,6 +47,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = new Order();
         order.setOrderStatus(OrderStatus.IN_PROCESS);
         order.setUser(user);
+        order.setAllPrice(dto.getAllPrice());
         order.setDelivery(dto.getDelivery());
         order.setPaymentMethod(dto.getPaymentMethod());
         Address address = addressRepository.findById(dto.getAddressId())

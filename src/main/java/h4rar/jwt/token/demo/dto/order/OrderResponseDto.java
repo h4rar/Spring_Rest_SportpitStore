@@ -23,6 +23,8 @@ public class OrderResponseDto {
 
     private UserResponseDto user;
 
+    private int allPrice;
+
     private Set<ProductInOrderDto> products;
 
     public OrderResponseDto(Order order) {
@@ -32,6 +34,7 @@ public class OrderResponseDto {
         this.user = UserResponseDto.fromUser(order.getUser());
         this.delivery = order.getDelivery();
         this.paymentMethod = order.getPaymentMethod();
+        this.allPrice = order.getAllPrice();
         Set<ProductInOrder> productInOrders = order.getProductInOrders();
         Set<ProductInOrderDto> dto = new HashSet<>();
         for (ProductInOrder product : productInOrders

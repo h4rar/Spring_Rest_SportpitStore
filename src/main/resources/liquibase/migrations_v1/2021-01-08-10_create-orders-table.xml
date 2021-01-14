@@ -24,6 +24,10 @@
                 <constraints nullable="false"/>
             </column>
 
+            <column name="all_price" type="INT">
+                <constraints nullable="false"/>
+            </column>
+
             <column name="payment_method" type="VARCHAR(30)">
                 <constraints nullable="false"/>
             </column>

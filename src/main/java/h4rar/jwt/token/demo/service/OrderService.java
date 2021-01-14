@@ -1,7 +1,6 @@
 package h4rar.jwt.token.demo.service;
 
 import h4rar.jwt.token.demo.dto.order.*;
-import h4rar.jwt.token.demo.model.statuses.order.OrderStatus;
 import org.springframework.data.domain.*;
 
 import javax.servlet.http.HttpServletRequest;

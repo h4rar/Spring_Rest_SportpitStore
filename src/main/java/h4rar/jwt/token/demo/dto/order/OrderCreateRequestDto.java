@@ -15,4 +15,6 @@ public class OrderCreateRequestDto {
     private VersionDelivery delivery;
 
     private PaymentMethod paymentMethod;
+
+    private int allPrice;
 }

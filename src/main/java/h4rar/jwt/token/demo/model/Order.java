@@ -16,6 +16,9 @@ public class Order extends BaseEntity {
     @Column(name = "order_status")
     private OrderStatus orderStatus;
 
+    @Column(name = "all_price")
+    private int allPrice;
+
     @OneToMany
     @JoinColumn(name = "order_id")
     private Set<ProductInOrder> productInOrders;
