@@ -1,8 +1,15 @@
 package h4rar.jwt.token.demo.dto.product;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductCreateRequestDto {
 
     private String name;
@@ -14,5 +21,7 @@ public class ProductCreateRequestDto {
     private String description;
 
     private Long categoryId;
+
+    private MultipartFile pic;
 }
 

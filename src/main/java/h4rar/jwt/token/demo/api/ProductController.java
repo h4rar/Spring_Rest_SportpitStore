@@ -1,11 +1,10 @@
 package h4rar.jwt.token.demo.api;
 
 import h4rar.jwt.token.demo.dto.product.*;
-import h4rar.jwt.token.demo.model.*;
-import h4rar.jwt.token.demo.repository.*;
 import h4rar.jwt.token.demo.service.*;
 import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,10 +24,12 @@ public class ProductController {
 
     @GetMapping("/products")
     public Page<AllProductResponseDto> getAllProduct(
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) String category,
             @PageableDefault(sort = {"created"},
                     size = 12, value = 12, direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        return productService.getAllProduct(pageable);
+        return productService.getAllProduct(pageable, search, category);
     }
 
     @GetMapping("/products/{id}")
@@ -38,9 +39,10 @@ public class ProductController {
         return productService.getOneProduct(id);
     }
 
-    @PostMapping("/admin/products")
-    public ProductResponseDto createNewProduct(
-            @RequestBody ProductCreateRequestDto productDto
+    @PostMapping(value = "/admin/products", consumes = {"multipart/form-data"})
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductResponseDto createOrder(
+            @ModelAttribute ProductCreateRequestDto productDto
     ) {
         return productService.createNewProduct(productDto);
     }

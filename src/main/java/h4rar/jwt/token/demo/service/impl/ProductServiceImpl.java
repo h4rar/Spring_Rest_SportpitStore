@@ -6,10 +6,12 @@ import h4rar.jwt.token.demo.model.*;
 import h4rar.jwt.token.demo.model.statuses.BasicStatus;
 import h4rar.jwt.token.demo.repository.*;
 import h4rar.jwt.token.demo.security.jwt.JwtTokenProvider;
-import h4rar.jwt.token.demo.service.ProductService;
+import h4rar.jwt.token.demo.service.*;
+import h4rar.jwt.token.demo.service.search.ProductSpecification;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -25,15 +27,19 @@ public class ProductServiceImpl implements ProductService {
 
     private final JwtTokenProvider jwtTokenProvider;
 
+    private final S3Services s3Services;
+
     public ProductServiceImpl(
             CategoryRepository categoryRepository, ProductRepository productRepository,
             CommentRepository commentRepository,
-            JwtTokenProvider jwtTokenProvider
+            JwtTokenProvider jwtTokenProvider,
+            S3Services s3Services
     ) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
         this.commentRepository = commentRepository;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.s3Services = s3Services;
     }
 
     @Override
@@ -47,6 +53,13 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new BadRequestException("Выбранной категории не существует"));
         product.setCategory(category);
         product.setBasicStatus(BasicStatus.ACTIVE);
+
+        MultipartFile pic = createDto.getPic();
+        String fileName = System.currentTimeMillis() + "_" + pic.getOriginalFilename();
+        String pathS3 = "/" + product.getClass().getSimpleName() + "/" + product.getName();
+        product.setPicPath("https://sportpit.s3.eu-north-1.amazonaws.com" + pathS3 + "/" + fileName);
+        s3Services.uploadFile(pic, fileName, pathS3);
+
         Product saveProduct = productRepository.save(product);
         return new ProductResponseDto(saveProduct);
     }
@@ -73,9 +86,29 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<AllProductResponseDto> getAllProduct(Pageable pageable) {
-        Page<Product> allByStatusNotIn = productRepository.findAllByBasicStatusNotIn(pageable, Collections.singleton(BasicStatus.DELETED));
-        return allByStatusNotIn.map(AllProductResponseDto::allProductResponseDtoFromProduct);
+    public Page<AllProductResponseDto> getAllProduct(Pageable pageable, String textSearch, String category) {
+        Page<AllProductResponseDto> page = null;
+        if (StringUtils.isBlank(textSearch) && StringUtils.isBlank(category)) {
+            Page<Product> allByStatusNotIn = productRepository.findAllByBasicStatusNotIn(pageable, Collections.singleton(BasicStatus.DELETED));
+            return allByStatusNotIn.map(AllProductResponseDto::allProductResponseDtoFromProduct);
+        }
+        if (!StringUtils.isBlank(textSearch) && !StringUtils.isBlank(category)) {
+            List<Product> all = productRepository.findAll(ProductSpecification.search(textSearch).and(ProductSpecification.categoryFilter(category)));
+            Set<Product> search = new HashSet<>(all);
+            page = mapToDtoAndToPages(search, pageable);
+        }
+        if (!StringUtils.isBlank(textSearch)) {
+            List<Product> all = productRepository.findAll(ProductSpecification.search(textSearch));
+            Set<Product> search = new HashSet<>(all);
+            page = mapToDtoAndToPages(search, pageable);
+        }
+        if (!StringUtils.isBlank(category)) {
+            System.out.println("category");
+            List<Product> all = productRepository.findAll(ProductSpecification.categoryFilter(category));
+            Set<Product> search = new HashSet<>(all);
+            page = mapToDtoAndToPages(search, pageable);
+        }
+        return page;
     }
 
     @Override
@@ -118,5 +151,19 @@ public class ProductServiceImpl implements ProductService {
         commentRepository.save(comment);
         Product product = comment.getProduct();
         return new ProductResponseDto(product);
+    }
+
+    private Page<AllProductResponseDto> mapToDtoAndToPages(Set<Product> search, Pageable pageable) {
+        List<Product> targetList = new ArrayList<>(search);
+        int start = (int)pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), targetList.size());
+        if (end < start) {
+            Page<Product> orders = new PageImpl<>(targetList.subList(0, 0), pageable, 0);
+            Page<AllProductResponseDto> page = orders.map(AllProductResponseDto::allProductResponseDtoFromProduct);
+            return page;
+        }
+        Page<Product> orders = new PageImpl<>(targetList.subList(start, end), pageable, (long)targetList.size());
+        Page<AllProductResponseDto> page = orders.map(AllProductResponseDto::allProductResponseDtoFromProduct);
+        return page;
     }
 }

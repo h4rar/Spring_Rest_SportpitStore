@@ -33,6 +33,11 @@ dependencies {
     }
     testImplementation 'org.springframework.security:spring-security-test'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
+
+//    awsS3
+    implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.106')
+    implementation 'com.amazonaws:aws-java-sdk-s3'
+
 }
 
 test {

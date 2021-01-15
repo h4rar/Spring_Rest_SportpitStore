@@ -20,6 +20,8 @@ public class ProductResponseDto {
 
     private String category;
 
+    private String picPath;
+
     private Set<CommentDto> commentDto = new HashSet<>();
 
     public ProductResponseDto(Product product) {
@@ -29,6 +31,7 @@ public class ProductResponseDto {
         this.quantity = product.getQuantity();
         this.description = product.getDescription();
         this.category = product.getCategory().getName();
+        this.picPath = product.getPicPath();
         List<Comment> comments = product.getComments();
         if(comments != null){
             for (Comment comm: comments

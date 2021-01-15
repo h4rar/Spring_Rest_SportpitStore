@@ -30,6 +30,9 @@ public class Product extends BaseEntity {
     @Type(type = "text")
     private String description;
 
+    @Column(name = "pic_path")
+    private String picPath;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;

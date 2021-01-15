@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 public interface ProductService {
     ProductResponseDto createNewProduct(ProductCreateRequestDto createDto);
     ProductResponseDto updateNewProduct(ProductUpdateRequestDto updateDto);
-    Page<AllProductResponseDto> getAllProduct(Pageable pageable);
+    Page<AllProductResponseDto> getAllProduct(Pageable pageable, String textSearch, String category);
     ProductResponseDto getOneProduct(Long id);
     ProductResponseDto createComment(CommentCreateRequestDto commentDto, HttpServletRequest req);
     ProductResponseDto hideComment(String idComment);

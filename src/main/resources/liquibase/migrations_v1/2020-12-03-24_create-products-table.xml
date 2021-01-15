@@ -31,6 +31,10 @@
                 <constraints nullable="false"/>
             </column>
 
+            <column name="pic_path" type="VARCHAR(150)">
+                <constraints unique="true"/>
+            </column>
+
             <column name="description" type="TEXT">
                 <constraints nullable="false"/>
             </column>

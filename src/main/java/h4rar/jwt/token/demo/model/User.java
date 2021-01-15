@@ -1,14 +1,15 @@
 package h4rar.jwt.token.demo.model;
 
 import h4rar.jwt.token.demo.model.statuses.BasicStatus;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Data
+@Setter
+@Getter
 public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
