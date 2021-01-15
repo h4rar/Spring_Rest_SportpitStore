@@ -1,6 +1,6 @@
 package h4rar.jwt.token.demo.model;
 
-import h4rar.jwt.token.demo.model.statuses.BasicStatus;
+import h4rar.jwt.token.demo.model.statuses.*;
 import lombok.*;
 import org.hibernate.annotations.Type;
 
@@ -16,6 +16,10 @@ public class Product extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "basic_status")
     private BasicStatus basicStatus;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sale_status")
+    private SaleStatus saleStatus;
 
     @Column(name = "name")
     private String name;
