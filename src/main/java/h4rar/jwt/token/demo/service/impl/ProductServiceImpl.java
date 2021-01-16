@@ -87,23 +87,29 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<AllProductResponseDto> getAllProduct(Pageable pageable, String textSearch, String category) {
+        System.out.println(textSearch);
+        System.out.println(category);
         Page<AllProductResponseDto> page = null;
         if (StringUtils.isBlank(textSearch) && StringUtils.isBlank(category)) {
+            System.out.println(1);
             Page<Product> allByStatusNotIn = productRepository.findAllByBasicStatusNotIn(pageable, Collections.singleton(BasicStatus.DELETED));
             return allByStatusNotIn.map(AllProductResponseDto::allProductResponseDtoFromProduct);
         }
         if (!StringUtils.isBlank(textSearch) && !StringUtils.isBlank(category)) {
+            System.out.println(2);
             List<Product> all = productRepository.findAll(ProductSpecification.search(textSearch).and(ProductSpecification.categoryFilter(category)));
             Set<Product> search = new HashSet<>(all);
             page = mapToDtoAndToPages(search, pageable);
+            return page;
         }
         if (!StringUtils.isBlank(textSearch)) {
+            System.out.println(3);
             List<Product> all = productRepository.findAll(ProductSpecification.search(textSearch));
             Set<Product> search = new HashSet<>(all);
             page = mapToDtoAndToPages(search, pageable);
         }
         if (!StringUtils.isBlank(category)) {
-            System.out.println("category");
+            System.out.println(4);
             List<Product> all = productRepository.findAll(ProductSpecification.categoryFilter(category));
             Set<Product> search = new HashSet<>(all);
             page = mapToDtoAndToPages(search, pageable);
