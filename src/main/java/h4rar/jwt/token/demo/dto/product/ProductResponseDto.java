@@ -22,7 +22,7 @@ public class ProductResponseDto {
 
     private String picPath;
 
-    private Set<CommentDto> commentDto = new HashSet<>();
+    private List<CommentDto> commentDto = new ArrayList<>();
 
     public ProductResponseDto(Product product) {
         this.id = product.getId();
