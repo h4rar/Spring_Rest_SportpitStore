@@ -6,6 +6,7 @@ import h4rar.jwt.token.demo.model.*;
 import h4rar.jwt.token.demo.model.statuses.order.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Data
@@ -24,6 +25,9 @@ public class OrderResponseDto {
     private UserResponseDto user;
 
     private int allPrice;
+    private LocalDateTime created;
+
+    private LocalDateTime updated;
 
     private Set<ProductInOrderDto> products;
 
@@ -35,6 +39,8 @@ public class OrderResponseDto {
         this.delivery = order.getDelivery();
         this.paymentMethod = order.getPaymentMethod();
         this.allPrice = order.getAllPrice();
+        this.created = order.getCreated();
+        this.updated = order.getUpdated();
         Set<ProductInOrder> productInOrders = order.getProductInOrders();
         Set<ProductInOrderDto> dto = new HashSet<>();
         for (ProductInOrder product : productInOrders
