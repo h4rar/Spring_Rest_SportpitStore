@@ -33,13 +33,16 @@ public class ProductResponseDto {
         this.category = product.getCategory().getName();
         this.picPath = product.getPicPath();
         List<Comment> comments = product.getComments();
+        List<CommentDto> newCommentDto = new ArrayList<>();
         if(comments != null){
             for (Comment comm: comments
             ) {
                 CommentDto cd = new CommentDto(comm);
-                commentDto.add(cd);
+                newCommentDto.add(cd);
             }
         }
+        Collections.reverse(newCommentDto);
+        this.commentDto = newCommentDto;
     }
 
     public static ProductResponseDto productResponseDtoFromProduct(Product product) {
