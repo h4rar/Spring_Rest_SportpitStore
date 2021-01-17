@@ -16,7 +16,7 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="order_status" type="VARCHAR(25)" defaultValue="IN_PROCESS">
+            <column name="order_status" type="VARCHAR(25)" defaultValue="В_процессе">
                 <constraints nullable="false"/>
             </column>
 

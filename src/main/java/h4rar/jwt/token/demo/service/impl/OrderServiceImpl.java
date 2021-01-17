@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderResponseDto createNewOrder(HttpServletRequest req, OrderCreateRequestDto dto) {
         User user = jwtTokenProvider.getUserFromHttpServletRequest(req);
         Order order = new Order();
-        order.setOrderStatus(OrderStatus.IN_PROCESS);
+        order.setOrderStatus(OrderStatus.В_процессе);
         order.setUser(user);
         order.setAllPrice(dto.getAllPrice());
         order.setDelivery(dto.getDelivery());
