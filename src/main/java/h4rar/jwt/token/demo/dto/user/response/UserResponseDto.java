@@ -3,6 +3,7 @@ package h4rar.jwt.token.demo.dto.user.response;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import h4rar.jwt.token.demo.dto.address.AddressResponseDto;
 import h4rar.jwt.token.demo.model.*;
+import h4rar.jwt.token.demo.model.statuses.BasicStatus;
 import lombok.Data;
 
 import java.util.*;
@@ -41,7 +42,9 @@ public class UserResponseDto {
             List<AddressResponseDto> userAddressResponseDto = new ArrayList<>();
             for (Address ua : userAddress
             ) {
-                userAddressResponseDto.add(AddressResponseDto.fromAddress(ua));
+                if(ua.getBasicStatus()!= BasicStatus.DELETED){
+                    userAddressResponseDto.add(AddressResponseDto.fromAddress(ua));
+                }
             }
             userResponseDto.setAddress(userAddressResponseDto);
         }
