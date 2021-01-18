@@ -23,6 +23,8 @@ public class UserResponseDto {
 
     private String phone;
 
+    private String role;
+
     private List<AddressResponseDto> address;
 
     public static UserResponseDto fromUser(User user) {
@@ -32,6 +34,7 @@ public class UserResponseDto {
         userResponseDto.setFirstName(user.getFirstName());
         userResponseDto.setLastName(user.getLastName());
         userResponseDto.setEmail(user.getEmail());
+        userResponseDto.setRole(user.getRoles().toString());
         userResponseDto.setPhone(user.getPhone());
         List<Address> userAddress = user.getAddress();
         if (userAddress != null) {
