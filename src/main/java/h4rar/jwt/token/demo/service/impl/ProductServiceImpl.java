@@ -92,9 +92,6 @@ public class ProductServiceImpl implements ProductService {
             product.setPicPath("https://sportpit.s3.eu-north-1.amazonaws.com" + pathS3 + "/" + fileName);
             s3Services.uploadFile(pic, fileName, pathS3);
         }
-        else {
-            product.setPicPath(null);
-        }
         Product saveProduct = productRepository.save(product);
         return new ProductResponseDto(saveProduct);
     }
