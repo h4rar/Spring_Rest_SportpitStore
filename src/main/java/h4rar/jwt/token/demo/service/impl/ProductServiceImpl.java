@@ -86,6 +86,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public ProductResponseDto deleteOrder(Long id) {
+        Product product = productRepository.findById(id).orElseThrow(() -> new NotFoundException("Продукта с таким id не существует"));
+        product.setBasicStatus(BasicStatus.DELETED);
+        Product save = productRepository.save(product);
+        return new ProductResponseDto(save);
+    }
+
+    @Override
     public Page<AllProductResponseDto> getAllProduct(Pageable pageable, String textSearch, String category) {
         System.out.println(textSearch);
         System.out.println(category);

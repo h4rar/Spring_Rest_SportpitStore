@@ -47,6 +47,14 @@ public class ProductController {
         return productService.createNewProduct(productDto);
     }
 
+    @DeleteMapping(value = "/admin/products/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductResponseDto deleteOrder(
+            @PathVariable Long id
+    ) {
+        return productService.deleteOrder(id);
+    }
+
     @PatchMapping("/admin/products")
     public ProductResponseDto updateProduct(
             @RequestBody ProductUpdateRequestDto productDto
