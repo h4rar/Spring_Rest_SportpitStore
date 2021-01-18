@@ -20,6 +20,8 @@ public class AllProductResponseDto {
 
     private String category;
 
+    private String picPath;
+
 
     public AllProductResponseDto(Product product) {
         this.id = product.getId();
@@ -28,6 +30,7 @@ public class AllProductResponseDto {
         this.quantity = product.getQuantity();
         this.description = product.getDescription();
         this.category = product.getCategory().getName();
+        this.picPath = product.getPicPath();
     }
 
     public static AllProductResponseDto allProductResponseDtoFromProduct(Product product) {
