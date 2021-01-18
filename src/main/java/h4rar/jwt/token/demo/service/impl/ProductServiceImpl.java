@@ -55,18 +55,22 @@ public class ProductServiceImpl implements ProductService {
         product.setBasicStatus(BasicStatus.ACTIVE);
 
         MultipartFile pic = createDto.getPic();
-        String fileName = System.currentTimeMillis() + "_" + pic.getOriginalFilename();
-        String pathS3 = "/" + product.getClass().getSimpleName() + "/" + product.getName();
-        product.setPicPath("https://sportpit.s3.eu-north-1.amazonaws.com" + pathS3 + "/" + fileName);
-        s3Services.uploadFile(pic, fileName, pathS3);
-
+        if (pic!=null){
+            String fileName = System.currentTimeMillis() + "_" + pic.getOriginalFilename();
+            String pathS3 = "/" + product.getClass().getSimpleName() + "/" + product.getName();
+            product.setPicPath("https://sportpit.s3.eu-north-1.amazonaws.com" + pathS3 + "/" + fileName);
+            s3Services.uploadFile(pic, fileName, pathS3);
+        }
+        else {
+            product.setPicPath(null);
+        }
         Product saveProduct = productRepository.save(product);
         return new ProductResponseDto(saveProduct);
     }
 
     @Override
-    public ProductResponseDto updateNewProduct(ProductUpdateRequestDto updateDto) {
-        Product product = productRepository.findById(updateDto.getId()).orElseThrow(() -> new NotFoundException("Продукта с таким id не существует"));
+    public ProductResponseDto updateNewProduct(Long id, ProductCreateRequestDto updateDto) {
+        Product product = productRepository.findById(id).orElseThrow(() -> new NotFoundException("Продукта с таким id не существует"));
         Double price = updateDto.getPrice();
         if (!StringUtils.isBlank(updateDto.getName())
         ) {
@@ -81,6 +85,16 @@ public class ProductServiceImpl implements ProductService {
         Category category = categoryRepository.findById(updateDto.getCategoryId())
                 .orElseThrow(() -> new BadRequestException("Выбранной категории не существует"));
         product.setCategory(category);
+        MultipartFile pic = updateDto.getPic();
+        if (pic!=null){
+            String fileName = System.currentTimeMillis() + "_" + pic.getOriginalFilename();
+            String pathS3 = "/" + product.getClass().getSimpleName() + "/" + product.getName();
+            product.setPicPath("https://sportpit.s3.eu-north-1.amazonaws.com" + pathS3 + "/" + fileName);
+            s3Services.uploadFile(pic, fileName, pathS3);
+        }
+        else {
+            product.setPicPath(null);
+        }
         Product saveProduct = productRepository.save(product);
         return new ProductResponseDto(saveProduct);
     }

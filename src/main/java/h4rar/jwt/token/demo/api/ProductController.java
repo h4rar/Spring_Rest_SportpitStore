@@ -48,18 +48,19 @@ public class ProductController {
     }
 
     @DeleteMapping(value = "/admin/products/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public ProductResponseDto deleteOrder(
             @PathVariable Long id
     ) {
         return productService.deleteOrder(id);
     }
 
-    @PatchMapping("/admin/products")
+    @PatchMapping(value = "/admin/products/{id}", consumes = {"multipart/form-data"})
     public ProductResponseDto updateProduct(
-            @RequestBody ProductUpdateRequestDto productDto
+            @ModelAttribute ProductCreateRequestDto productDto,
+            @PathVariable Long id
     ) {
-        return productService.updateNewProduct(productDto);
+        return productService.updateNewProduct(id, productDto);
     }
 
     @PostMapping("/products/comments")
