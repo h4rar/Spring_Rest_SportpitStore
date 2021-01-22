@@ -3,7 +3,7 @@ package h4rar.jwt.token.demo.service.impl;
 import h4rar.jwt.token.demo.dto.product.*;
 import h4rar.jwt.token.demo.exception.*;
 import h4rar.jwt.token.demo.model.*;
-import h4rar.jwt.token.demo.model.statuses.BasicStatus;
+import h4rar.jwt.token.demo.model.statuses.*;
 import h4rar.jwt.token.demo.repository.*;
 import h4rar.jwt.token.demo.security.jwt.JwtTokenProvider;
 import h4rar.jwt.token.demo.service.*;
@@ -44,8 +44,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto createNewProduct(ProductCreateRequestDto createDto) {
+        Product wfdcf = productRepository.findByName(createDto.getName());
+        if(wfdcf!=null){
+            throw new BadRequestException("Товар с таким именем уже существует");
+        }
         Product product = new Product();
         product.setName(createDto.getName());
+        SaleStatus saleStatus = createDto.getSaleStatus();
+        product.setSaleStatus(saleStatus);
+        if(saleStatus==SaleStatus.SALE){
+            product.setOldPrice(createDto.getOldPrice());
+        }
         product.setPrice(createDto.getPrice());
         product.setQuantity(createDto.getQuantity());
         product.setDescription(createDto.getDescription());
@@ -106,29 +115,24 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<AllProductResponseDto> getAllProduct(Pageable pageable, String textSearch, String category) {
-        System.out.println(textSearch);
-        System.out.println(category);
         Page<AllProductResponseDto> page = null;
         if (StringUtils.isBlank(textSearch) && StringUtils.isBlank(category)) {
-            System.out.println(1);
+
             Page<Product> allByStatusNotIn = productRepository.findAllByBasicStatusNotIn(pageable, Collections.singleton(BasicStatus.DELETED));
             return allByStatusNotIn.map(AllProductResponseDto::allProductResponseDtoFromProduct);
         }
         if (!StringUtils.isBlank(textSearch) && !StringUtils.isBlank(category)) {
-            System.out.println(2);
             List<Product> all = productRepository.findAll(ProductSpecification.search(textSearch).and(ProductSpecification.categoryFilter(category)));
             Set<Product> search = new HashSet<>(all);
             page = mapToDtoAndToPages(search, pageable);
             return page;
         }
         if (!StringUtils.isBlank(textSearch)) {
-            System.out.println(3);
             List<Product> all = productRepository.findAll(ProductSpecification.search(textSearch));
             Set<Product> search = new HashSet<>(all);
             page = mapToDtoAndToPages(search, pageable);
         }
         if (!StringUtils.isBlank(category)) {
-            System.out.println(4);
             List<Product> all = productRepository.findAll(ProductSpecification.categoryFilter(category));
             Set<Product> search = new HashSet<>(all);
             page = mapToDtoAndToPages(search, pageable);

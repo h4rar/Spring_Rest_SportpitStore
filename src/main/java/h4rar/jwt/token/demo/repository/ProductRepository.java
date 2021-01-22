@@ -10,4 +10,5 @@ import java.util.*;
 public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor {
     Page<Product> findAllByBasicStatusNotIn(Pageable pageable, final Collection<BasicStatus> basicStatuses);
     Product findByIdAndBasicStatusNotIn(Long id, final Collection<BasicStatus> basicStatuses);
+    Product findByName(String name);
 }

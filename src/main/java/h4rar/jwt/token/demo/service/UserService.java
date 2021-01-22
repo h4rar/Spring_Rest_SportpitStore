@@ -3,7 +3,6 @@ package h4rar.jwt.token.demo.service;
 import h4rar.jwt.token.demo.dto.user.request.UserUpdateRequestDto;
 import h4rar.jwt.token.demo.dto.user.response.UserResponseDto;
 import h4rar.jwt.token.demo.model.User;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

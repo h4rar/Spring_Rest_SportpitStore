@@ -1,6 +1,8 @@
 package h4rar.jwt.token.demo.dto.product;
 
+import com.sun.org.apache.xalan.internal.xsltc.trax.DOM2SAX;
 import h4rar.jwt.token.demo.model.*;
+import h4rar.jwt.token.demo.model.statuses.SaleStatus;
 import lombok.Data;
 
 import java.util.*;
@@ -13,6 +15,9 @@ public class AllProductResponseDto {
     private String name;
 
     private double price;
+
+    private Double oldPrice;
+    private SaleStatus saleStatus;
 
     private int quantity;
 
@@ -31,6 +36,7 @@ public class AllProductResponseDto {
         this.description = product.getDescription();
         this.category = product.getCategory().getName();
         this.picPath = product.getPicPath();
+        this.saleStatus = product.getSaleStatus();
     }
 
     public static AllProductResponseDto allProductResponseDtoFromProduct(Product product) {

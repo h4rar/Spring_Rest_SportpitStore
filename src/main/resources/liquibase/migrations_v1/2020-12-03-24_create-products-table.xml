@@ -30,6 +30,9 @@
                 <constraints nullable="false"/>
             </column>
 
+            <column name="old_price" type="DOUBLE PRECISION">
+            </column>
+
             <column name="quantity" type="INT">
                 <constraints nullable="false"/>
             </column>
