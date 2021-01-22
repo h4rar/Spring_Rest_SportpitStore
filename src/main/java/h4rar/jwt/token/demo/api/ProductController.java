@@ -26,10 +26,11 @@ public class ProductController {
     public Page<AllProductResponseDto> getAllProduct(
             @RequestParam(required = false) String search,
             @RequestParam(required = false) String category,
+            @RequestParam(required = false) String sale,
             @PageableDefault(sort = {"created"},
                     size = 12, value = 12, direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        return productService.getAllProduct(pageable, search, category);
+        return productService.getAllProduct(pageable, search, category, sale);
     }
 
     @GetMapping("/products/{id}")

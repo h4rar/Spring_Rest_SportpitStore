@@ -9,7 +9,7 @@ public interface ProductService {
     ProductResponseDto createNewProduct(ProductCreateRequestDto createDto);
     ProductResponseDto updateNewProduct(Long id, ProductCreateRequestDto updateDto);
     ProductResponseDto deleteOrder(Long id);
-    Page<AllProductResponseDto> getAllProduct(Pageable pageable, String textSearch, String category);
+    Page<AllProductResponseDto> getAllProduct(Pageable pageable, String textSearch, String category, String sale);
     ProductResponseDto getOneProduct(Long id);
     ProductResponseDto createComment(CommentCreateRequestDto commentDto, HttpServletRequest req);
     ProductResponseDto hideComment(String idComment);

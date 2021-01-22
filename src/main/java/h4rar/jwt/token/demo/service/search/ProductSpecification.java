@@ -1,7 +1,7 @@
 package h4rar.jwt.token.demo.service.search;
 
 import h4rar.jwt.token.demo.model.Product;
-import h4rar.jwt.token.demo.model.statuses.BasicStatus;
+import h4rar.jwt.token.demo.model.statuses.*;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;
@@ -28,6 +28,17 @@ public class ProductSpecification {
 
 //            Predicate filterByCategory = criteriaBuilder.equal(criteriaBuilder.lower(root.join("category", JoinType.LEFT).get("name")),  category);
             return filterByCategory;
+        };
+    }
+
+    public static Specification<Product> saleFilter(String sale) {
+        return (root, query, criteriaBuilder) -> {
+//            String likeSearch = "%" + sale + "%";
+//            Predicate filterBySale = criteriaBuilder.like(criteriaBuilder.lower(root.get("saleStatus")),  likeSearch.toLowerCase());
+            Predicate filterBySale = criteriaBuilder.equal(root.get("saleStatus"), SaleStatus.SALE);
+
+//            Predicate filterByCategory = criteriaBuilder.equal(criteriaBuilder.lower(root.join("category", JoinType.LEFT).get("name")),  category);
+            return filterBySale;
         };
     }
 }

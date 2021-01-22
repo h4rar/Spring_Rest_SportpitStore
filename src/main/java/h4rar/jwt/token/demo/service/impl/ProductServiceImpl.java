@@ -114,28 +114,69 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<AllProductResponseDto> getAllProduct(Pageable pageable, String textSearch, String category) {
-        Page<AllProductResponseDto> page = null;
-        if (StringUtils.isBlank(textSearch) && StringUtils.isBlank(category)) {
+    public Page<AllProductResponseDto> getAllProduct(Pageable pageable, String textSearch, String category, String sale) {
+//        if (!StringUtils.isBlank(sale)){
+//            List<Product> all = productRepository.findAll(ProductSpecification.saleFilter(sale));
+//            System.out.println(all);
+//        }
 
+
+        Page<AllProductResponseDto> page = null;
+        if (StringUtils.isBlank(textSearch) && StringUtils.isBlank(category)&& StringUtils.isBlank(sale)) {
             Page<Product> allByStatusNotIn = productRepository.findAllByBasicStatusNotIn(pageable, Collections.singleton(BasicStatus.DELETED));
             return allByStatusNotIn.map(AllProductResponseDto::allProductResponseDtoFromProduct);
         }
+
+        if (!StringUtils.isBlank(textSearch) && !StringUtils.isBlank(category)&& !StringUtils.isBlank(sale)) {
+            List<Product> all = productRepository.findAll(
+                    ProductSpecification.search(textSearch)
+                            .and(ProductSpecification.categoryFilter(category))
+                            .and(ProductSpecification.saleFilter(sale)));
+            Set<Product> search = new HashSet<>(all);
+            page = mapToDtoAndToPages(search, pageable);
+            return page;
+        }
+
         if (!StringUtils.isBlank(textSearch) && !StringUtils.isBlank(category)) {
             List<Product> all = productRepository.findAll(ProductSpecification.search(textSearch).and(ProductSpecification.categoryFilter(category)));
             Set<Product> search = new HashSet<>(all);
             page = mapToDtoAndToPages(search, pageable);
             return page;
         }
+
+        if (!StringUtils.isBlank(textSearch) && !StringUtils.isBlank(sale)) {
+            List<Product> all = productRepository.findAll(ProductSpecification.search(textSearch).and(ProductSpecification.saleFilter(sale)));
+            Set<Product> search = new HashSet<>(all);
+            page = mapToDtoAndToPages(search, pageable);
+            return page;
+        }
+
+        if (!StringUtils.isBlank(sale) && !StringUtils.isBlank(category)) {
+            List<Product> all = productRepository.findAll(ProductSpecification.saleFilter(sale).and(ProductSpecification.categoryFilter(category)));
+            Set<Product> search = new HashSet<>(all);
+            page = mapToDtoAndToPages(search, pageable);
+            return page;
+        }
+
+
         if (!StringUtils.isBlank(textSearch)) {
             List<Product> all = productRepository.findAll(ProductSpecification.search(textSearch));
             Set<Product> search = new HashSet<>(all);
             page = mapToDtoAndToPages(search, pageable);
+            return page;
         }
+
         if (!StringUtils.isBlank(category)) {
             List<Product> all = productRepository.findAll(ProductSpecification.categoryFilter(category));
             Set<Product> search = new HashSet<>(all);
             page = mapToDtoAndToPages(search, pageable);
+            return page;
+        }
+        if (!StringUtils.isBlank(sale)) {
+            List<Product> all = productRepository.findAll(ProductSpecification.saleFilter(sale));
+            Set<Product> search = new HashSet<>(all);
+            page = mapToDtoAndToPages(search, pageable);
+            return page;
         }
         return page;
     }
