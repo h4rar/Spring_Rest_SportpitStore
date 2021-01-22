@@ -91,6 +91,8 @@ public class ProductServiceImpl implements ProductService {
         }
         product.setQuantity(updateDto.getQuantity());
         product.setPrice(price);
+        product.setOldPrice(updateDto.getOldPrice());
+        product.setSaleStatus(updateDto.getSaleStatus());
         Category category = categoryRepository.findById(updateDto.getCategoryId())
                 .orElseThrow(() -> new BadRequestException("Выбранной категории не существует"));
         product.setCategory(category);
