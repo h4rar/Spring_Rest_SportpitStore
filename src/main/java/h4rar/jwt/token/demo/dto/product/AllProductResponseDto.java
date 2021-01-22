@@ -37,6 +37,7 @@ public class AllProductResponseDto {
         this.category = product.getCategory().getName();
         this.picPath = product.getPicPath();
         this.saleStatus = product.getSaleStatus();
+        this.oldPrice = product.getOldPrice();
     }
 
     public static AllProductResponseDto allProductResponseDtoFromProduct(Product product) {
